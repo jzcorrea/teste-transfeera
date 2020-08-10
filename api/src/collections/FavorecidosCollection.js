@@ -17,10 +17,10 @@ module.exports = class FavorecidosCollection {
         return this._connectionService;
     }
 
-    async getAll() {
+    async getAll(page, perPage) {
 
         const collection = await this.connectionService.getCollection(this._collection);
 
-        return collection.find().toArray();
+        return collection.find().skip((page - 1) * perPage).limit(perPage).toArray();
     }
 };
