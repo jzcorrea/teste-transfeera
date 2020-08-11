@@ -7,7 +7,7 @@ const body = validator.body(Joi.object({
     name: Joi.string().required(),
     cpf_cnpj: Joi.string().required(),
     email: Joi.string().email().required(),
-    bank: Joi.string().allow(...BANKS).required(),
+    bank: Joi.string().valid(...BANKS).required(),
     agency: Joi.when('bank', {
         is: '001',
         then: Joi.string().pattern(/^(?!0+$)[0-9]{0,4}$/),
@@ -26,8 +26,8 @@ const body = validator.body(Joi.object({
     account_digit: Joi.string().pattern(/^[0-9]{0,1}$/).required(),
     account_type: Joi.when('bank', {
         is: '001',
-        then: Joi.string().allow(...ACCOUNT_TYPES.bb),
-        otherwise: Joi.string().allow(...ACCOUNT_TYPES.other)
+        then: Joi.string().valid(...ACCOUNT_TYPES.bb).required(),
+        otherwise: Joi.string().valid(...ACCOUNT_TYPES.other)
     }).required(),
     status: Joi.string().required()
 }));
