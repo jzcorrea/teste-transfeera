@@ -5,9 +5,9 @@ module.exports = class FavorecidosController {
     static async getAll(req, res) {
 
         const collection = new FavorecidosCollection();
-        const { page, perPage } = req.query; 
+        const { page, perPage, search } = req.query; 
 
-        return res.send(await collection.getAll(page, perPage));
+        return res.send(await collection.getAll(page, perPage, search));
     }
 
     static async upsert(req, res) {

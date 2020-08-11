@@ -17,10 +17,33 @@ module.exports = class FavorecidosCollection {
         return this._connectionService;
     }
 
-    async getAll(page, perPage) {
+    getSearchFilter(search) {
+
+        if (!search) {
+
+            return {};
+        }
+
+        const re = new RegExp(search, 'i');
+
+        return search ? {
+            $or: [{
+                name: re
+            }, {
+                cpf_cnpj: re
+            }, {
+                agency: re
+            }, {
+                account: re
+            }]
+        } : {};
+    }
+
+    async getAll(page, perPage, search) {
 
         const collection = await this.connectionService.getCollection(this._collection);
+        const filter = this.getSearchFilter(search);
 
-        return collection.find().skip((page - 1) * perPage).limit(perPage).toArray();
+        return collection.find(filter).sort({ name: 1 }).skip((page - 1) * perPage).limit(perPage).toArray();
     }
 };
