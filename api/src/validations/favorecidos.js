@@ -6,5 +6,5 @@ module.exports = {
         page: Joi.number().min(1).default(1),
         perPage: Joi.number().default(10),
         search: Joi.string()
-    }))
+    })),
 };

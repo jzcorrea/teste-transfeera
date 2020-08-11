@@ -12,15 +12,25 @@ module.exports = class FavorecidosController {
 
     static async upsert(req, res) {
 
+        const { params, body } = req;
+        const collection = new FavorecidosCollection();
+
+        return res.send(await collection.upsert(params.id, body));
     }
 
-    static async remove(req, res) {
+    static async deleteOne(req, res) {
 
+        const { params } = req;
+        const collection = new FavorecidosCollection();
 
+        return res.send(await collection.deleteOne(params.id));
     }
 
-    static async removeMany(req, res) {
+    static async deleteMany(req, res) {
 
-
+        const { body } = req;
+        const collection = new FavorecidosCollection();
+        console.log(body);
+        return res.send(await collection.deleteMany(body.ids));
     }
 }

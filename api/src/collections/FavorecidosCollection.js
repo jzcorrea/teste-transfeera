@@ -17,7 +17,7 @@ module.exports = class FavorecidosCollection {
         return this._connectionService;
     }
 
-    getSearchFilter(search) {
+    static getSearchFilter(search) {
 
         if (!search) {
 
@@ -42,8 +42,39 @@ module.exports = class FavorecidosCollection {
     async getAll(page, perPage, search) {
 
         const collection = await this.connectionService.getCollection(this._collection);
-        const filter = this.getSearchFilter(search);
+        const filter = FavorecidosCollection.getSearchFilter(search);
 
-        return collection.find(filter).sort({ name: 1 }).skip((page - 1) * perPage).limit(perPage).toArray();
+        return collection.find(filter).sort({
+            name: 1
+        }).skip((page - 1) * perPage).limit(perPage).toArray();
+    }
+
+    async upsert(id, data) {
+
+        const collection = await this.connectionService.getCollection(this._collection);
+
+        return id ? collection.updateOne({
+            _id: this.connectionService.getObjectId(id)
+        }, data) : collection.insertOne(data);
+    }
+
+    async deleteOne(id) {
+
+        const collection = await this.connectionService.getCollection(this._collection);
+
+        return collection.deleteOne({
+            _id: this.connectionService.getObjectId(id)
+        });
+    }
+
+    async deleteMany(ids) {
+
+        const collection = await this.connectionService.getCollection(this._collection);
+
+        return collection.deleteMany({
+            _id: {
+                $in: ids.map(id => this.connectionService.getObjectId(id))
+            }
+        });
     }
 };

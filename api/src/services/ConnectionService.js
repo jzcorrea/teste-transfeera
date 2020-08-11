@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectID } = require('mongodb');
 const configs = require('../common/configs');
 
 module.exports = class ConnectionService {
@@ -6,6 +6,11 @@ module.exports = class ConnectionService {
     constructor() {
 
         this._db = null;
+    }
+
+    getObjectId(id) {
+
+        return new ObjectID(id);
     }
 
     async getDb() {
