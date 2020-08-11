@@ -1,13 +1,9 @@
 const { MongoClient } = require('mongodb');
 const configs = require('../src/common/configs');
 const bulk = require('../assets/initial_bulk.json');
-
-const BANKS = ['001', '237', '104', '756'];
+const ACCOUNT_TYPES = require('../assets/account_types.json');
+const BANKS = require('../assets/banks.json');
 const DIGITS = ['X', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const ACCOUNT_TYPES = {
-    "bb": ['CONTA_CORRENTE', 'CONTA_POUPANCA', 'CONTA_FACIL'],
-    "other": ['CONTA_CORRENTE', 'CONTA_POUPANCA']
-};
 
 function isBB(bank) {
 
@@ -40,11 +36,8 @@ function getAgency(bank) {
 
     const is_bb = isBB(bank);
     const len = is_bb ? 9999 : 999999;
-    const agencyNumber = Math.floor(Math.random() * len) + 1;
-    const generateDigit = agencyNumber % 2 === 0;
-    const digit = generateDigit ? getAgencyDigit(bank) : null;
 
-    return generateDigit ? `${agencyNumber}-${digit}` : `${agencyNumber}`;
+    return `${Math.floor(Math.random() * len) + 1}`;
 }
 
 function getAccountType(bank) {
@@ -74,10 +67,8 @@ function getAccount(bank) {
 
     const is_bb = isBB(bank);
     const len = is_bb ? 999999 : 99999999;
-    const accountNumber = Math.floor(Math.random() * len) + 1;
-    const digit = getAccountDigit(bank);
 
-    return `${accountNumber}-${digit}`;
+    return `${Math.floor(Math.random() * len) + 1}`;
 }
 
 const favorecidos = bulk.map(({
@@ -86,20 +77,20 @@ const favorecidos = bulk.map(({
     email
 }, i) => {
 
+    const randomize = i % 3 != 0;
     const bank = getBank();
-    const agency = getAgency(bank);
-    const account = getAccount(bank);
-    const account_type = getAccountType(bank);
 
     return {
         name,
         cpf_cnpj,
         email,
         bank,
-        agency,
-        account,
-        account_type,
-        status: i % 2 === 0 ? 'draft' : 'validated'
+        agency: getAgency(bank),
+        agency_digit: randomize ? getAgencyDigit(bank) : null,
+        account: getAccount(bank),
+        account_digit: getAccountDigit(),
+        account_type: getAccountType(bank),
+        status: randomize ? 'draft' : 'validate'
     };
 });
 

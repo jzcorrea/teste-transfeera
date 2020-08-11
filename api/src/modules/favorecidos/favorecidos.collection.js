@@ -1,4 +1,4 @@
-const ConnectionService = require('../services/ConnectionService');
+const ConnectionService = require('../../services/connection.service');
 
 module.exports = class FavorecidosCollection {
 
@@ -17,7 +17,7 @@ module.exports = class FavorecidosCollection {
         return this._connectionService;
     }
 
-    static getSearchFilter(search) {
+    getSearchFilter(search) {
 
         if (!search) {
 
@@ -39,19 +39,33 @@ module.exports = class FavorecidosCollection {
         } : {};
     }
 
+    async getCollection() {
+
+        return this.connectionService.getCollection(this._collection);
+    }
+
     async getAll(page, perPage, search) {
 
-        const collection = await this.connectionService.getCollection(this._collection);
-        const filter = FavorecidosCollection.getSearchFilter(search);
+        const filter = this.getSearchFilter(search);
+        const collection = await this.getCollection();
 
         return collection.find(filter).sort({
             name: 1
         }).skip((page - 1) * perPage).limit(perPage).toArray();
     }
 
+    async getOne(id) {
+
+        const collection = await this.getCollection();
+
+        return collection.findOne({
+            _id: this.connectionService.getObjectId(id)
+        });
+    }
+
     async upsert(id, data) {
 
-        const collection = await this.connectionService.getCollection(this._collection);
+        const collection = await this.getCollection();
 
         return id ? collection.updateOne({
             _id: this.connectionService.getObjectId(id)
@@ -60,7 +74,7 @@ module.exports = class FavorecidosCollection {
 
     async deleteOne(id) {
 
-        const collection = await this.connectionService.getCollection(this._collection);
+        const collection = await this.getCollection();
 
         return collection.deleteOne({
             _id: this.connectionService.getObjectId(id)
@@ -69,11 +83,11 @@ module.exports = class FavorecidosCollection {
 
     async deleteMany(ids) {
 
-        const collection = await this.connectionService.getCollection(this._collection);
+        const collection = await this.getCollection();
 
         return collection.deleteMany({
             _id: {
-                $in: ids.map(id => this.connectionService.getObjectId(id))
+                $in: ids.map(this.connectionService.getObjectId)
             }
         });
     }

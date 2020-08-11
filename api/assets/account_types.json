@@ -1,0 +1,4 @@
+{
+    "bb": ["CONTA_CORRENTE", "CONTA_POUPANCA", "CONTA_FACIL"],
+    "other": ["CONTA_CORRENTE", "CONTA_POUPANCA"]
+}
