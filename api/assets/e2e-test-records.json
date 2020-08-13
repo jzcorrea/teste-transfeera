@@ -1,0 +1,61 @@
+{
+    "for_crud": [{
+        "name": "Lavação do Paulo Ltda",
+        "cpf_cnpj": "17.282.682/0001-75",
+        "email": "paulo.lavacao@hotmail.com",
+        "bank": "756",
+        "agency": "99325",
+        "agency_digit": "3",
+        "account": "83052164",
+        "account_digit": "0",
+        "account_type": "CONTA_CORRENTE",
+        "status": "draft"
+    }, {
+        "name": "Luciana dos Santos",
+        "cpf_cnpj": "429.949.700-74",
+        "email": "luciana.santos@bol.com.br",
+        "bank": "237",
+        "agency": "542421",
+        "agency_digit": "0",
+        "account": "24733250",
+        "account_digit": "5",
+        "account_type": "CONTA_POUPANCA",
+        "status": "draft"
+    }],
+    "for_creating": {
+        "name": "Otaviano Pereira",
+        "cpf_cnpj": "914.588.200-25",
+        "email": "otaviano.pereira@gmail.com",
+        "bank": "104",
+        "agency": "98121",
+        "agency_digit": null,
+        "account": "21401711",
+        "account_digit": "2",
+        "account_type": "CONTA_CORRENTE",
+        "status": "draft"
+    },
+    "for_wrong_agency_digit": {
+        "name": "Mistura Fina Rotisserie Ltda",
+        "cpf_cnpj": "49.956.358/0001-81",
+        "email": "misturafina@gmail.com",
+        "bank": "756",
+        "agency": "690634",
+        "agency_digit": "X",
+        "account": "59775829",
+        "account_digit": "0",
+        "account_type": "CONTA_CORRENTE",
+        "status": "draft"
+    },
+    "for_wrong_account_type": {
+        "name": "Mercadinho do Seu Zé Ltda",
+        "cpf_cnpj": "90.743.446/0001-07",
+        "email": "seu.ze@gmail.com",
+        "bank": "756",
+        "agency": "634514",
+        "agency_digit": "1",
+        "account": "89587823",
+        "account_digit": "6",
+        "account_type": "CONTA_FACIL",
+        "status": "draft"
+    }
+}

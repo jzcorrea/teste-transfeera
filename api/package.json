@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "jest --config ./jest-config.json --detectOpenHandles"
+    "test": "jest --config ./jest-config.json --detectOpenHandles",
+    "e2e": "jest --config ./jest-e2e-config.json --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",

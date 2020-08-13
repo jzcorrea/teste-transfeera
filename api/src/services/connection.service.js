@@ -1,6 +1,5 @@
 const { MongoClient, ObjectID } = require('mongodb');
 const configs = require('../common/configs');
-const { mongodb } = require('../common/configs');
 
 module.exports = class ConnectionService {
 

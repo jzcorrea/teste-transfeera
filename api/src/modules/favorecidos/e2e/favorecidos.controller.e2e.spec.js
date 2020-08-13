@@ -1,116 +1,145 @@
 const request = require('supertest');
+const {
+    MongoClient,
+    ResumeToken
+} = require('mongodb');
 const app = require('../../../../app');
-const ConnectionService = require('../../../services/connection.service');
+const configs = require('../../../common/configs');
+const records = require('../../../../assets/e2e-test-records.json');
 
-describe('Favorecidos controller test', () => {
+describe('Favorecidos controller integration tests', () => {
 
-    it('should call getAll without pagination query', done => {
+    let id = null;
+    let idsToRemove = [];
 
-        request(app).get('/favorecidos').then(res => {
+    beforeAll(async () => {
 
-            const content = JSON.parse(res.text);
+        id = null;
 
-            expect(res.statusCode).toBe(200);
-            expect(content.length).toBeLessThanOrEqual(10);
-            done();
-        });
+        const connection = await MongoClient.connect(configs.mongodb.url, configs.mongodb.options);
+        const db = connection.db('transfeera');
+        const collection = db.collection('favorecidos');
+        const {
+            ops
+        } = await collection.insertMany(records.for_crud);
+
+        idsToRemove = ops.map(record => record._id);
     });
 
-    it('should call getAll with pagination query', done => {
+    it('should call getAll without pagination query', async done => {
+
+        const res = await request(app).get('/favorecidos');
+        const content = JSON.parse(res.text);
+
+        expect(res.statusCode).toBe(200);
+        expect(content.length).toBeLessThanOrEqual(10);
+        done();
+    });
+
+    it('should call getAll with pagination query', async done => {
 
         const perPage = 15;
+        const res = await request(app).get(`/favorecidos?page=1&perPage=${perPage}`);
+        const content = JSON.parse(res.text);
 
-        request(app).get(`/favorecidos?page=1&perPage=${perPage}`).then(res => {
-
-            const content = JSON.parse(res.text);
-
-            expect(res.statusCode).toBe(200);
-            expect(content.length).toBeLessThanOrEqual(perPage);
-            done();
-        });
+        expect(res.statusCode).toBe(200);
+        expect(content.length).toBeLessThanOrEqual(perPage);
+        done();
     });
 
-    it('should call getAll with a existing search query', done => {
+    it('should call getAll with a existing search query', async done => {
 
-        request(app).get('/favorecidos?search=josé').then(res => {
+        const res = await request(app).get('/favorecidos?search=josé');
+        const content = JSON.parse(res.text);
 
-            const content = JSON.parse(res.text);
-
-            expect(res.statusCode).toBe(200);
-            expect(content.length).toBeGreaterThan(0);
-            done();
-        });
+        expect(res.statusCode).toBe(200);
+        expect(content.length).toBeGreaterThan(0);
+        done();
     });
 
-    it('should call getAll with a no existing search query', done => {
+    it('should call getAll with a no existing search query', async done => {
 
-        request(app).get('/favorecidos?search=nome').then(res => {
+        const res = await request(app).get('/favorecidos?search=nome');
+        const content = JSON.parse(res.text);
 
-            const content = JSON.parse(res.text);
-
-            expect(res.statusCode).toBe(200);
-            expect(content.length).toBe(0);
-            done();
-        });
+        expect(res.statusCode).toBe(200);
+        expect(content.length).toBe(0);
+        done();
     });
 
-    it('should call create and create a new record', done => {
+    it('should call create with an invalid agency digit and return error', async done => {
 
-        const favorecido = {
-            name: 'José Silva',
-            email: 'jose.silva@gmail.com',
-            cpf_cnpj: '029.192.211-09',
-            bank: '001',
-            agency: '4742',
-            agency_digit: null,
-            account: '17021',
-            account_digit: '3',
-            account_type: 'CONTA_CORRENTE'
+        const res = await request(app).post('/favorecidos').send(records.for_wrong_agency_digit);
+
+        expect(res.statusCode).toBe(400);
+        done();
+    });
+
+    it('should call create with an invalid account type and return error', async done => {
+
+        const res = await request(app).post('/favorecidos').send(records.for_wrong_account_type);
+
+        expect(res.statusCode).toBe(400);
+        done();
+    });
+
+    it('should call create and create a new record', async done => {
+
+        const res = await request(app).post('/favorecidos').send(records.for_creating);
+        const result = JSON.parse(res.text);
+
+        id = result.ops[0]._id;
+
+        expect(res.statusCode).toBe(200);
+        expect(result.ops.length).toBe(1);
+        expect(result.ops[0].status).toBe('draft');
+        done();
+    });
+
+    it('should call getOne with an id and return one record', async done => {
+
+        const res = await request(app).get(`/favorecidos/${id}`);
+        const content = JSON.parse(res.text);
+
+        expect(res.statusCode).toBe(200);
+        expect(content.status).toBe('draft');
+        done();
+    });
+
+    it('should call update and update an existing record by id', async done => {
+
+        const updates = {
+            ...records.for_creating
         };
+        updates.email = 'teste.integracao@transfeera.com';
 
-        request(app).post('/favorecidos').send(favorecido).then(res => {
+        const res = await request(app).put(`/favorecidos/${id}`).send(updates);
+        const result = JSON.parse(res.text);
 
-            const result = JSON.parse(res.text);
-
-            expect(res.statusCode).toBe(200);
-            expect(result.ops.length).toBe(1);
-            expect(result.ops[0].status).toBe('draft');
-            done();
-        });
+        expect(res.statusCode).toBe(200);
+        expect(result.nModified).toBe(1);
+        done();
     });
 
-    it ('should call update and update an existing record', done => {
+    it('should call deleteOne and remove an existing record by id', async done => {
 
-        let id = null;
-        const cnpjToValidate = '109.876.543-21';
-        const favorecido = {
-            name: 'Pedro Sousa',
-            email: 'pedro.sousa@gmail.com',
-            cpf_cnpj: '123.456.789-10',
-            bank: '001',
-            agency: '1111',
-            agency_digit: null,
-            account: '12017',
-            account_digit: '6',
-            account_type: 'CONTA_CORRENTE'
-        };
+        const res = await request(app).delete(`/favorecidos/one/${id}`);
+        const result = JSON.parse(res.text);
 
-        request(app).post('/favorecidos').send(favorecido).then(res => {
+        expect(res.statusCode).toBe(200);
+        expect(result.deletedCount).toBe(1);
+        done();
+    });
 
-            const result = JSON.parse(res.text);
-            id = result.ops[0]._id;
+    it('should call deleteMany and remove all the records with received ids', async done => {
 
-            favorecido.cpf_cnpj = cnpjToValidate;
-
-            return request(app).put(`/favorecidos/${id}`).send(favorecido);
-        }).then(res => {
-
-            const result = JSON.parse(res.text);
-
-            expect(res.statusCode).toBe(200);
-            expect(result.nModified).toBe(1);
-
-            done();
+        const res = await request(app).delete(`/favorecidos/many`).send({
+            ids: idsToRemove
         });
+        const result = JSON.parse(res.text);
+
+        expect(res.statusCode).toBe(200);
+        expect(result.deletedCount).toBe(2);
+        done();
     });
 });
