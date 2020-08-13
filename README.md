@@ -22,6 +22,7 @@ Dentro da pasta do projeto:
 ## Para inicializar a aplicação:
 1. `cd api && npm start`;
 2. `cd web && npm start`;
+3. Acessar `localhost:4200/`.
 
 ## Para executar os testes unitários:
 1. `cd api && npm test`.
