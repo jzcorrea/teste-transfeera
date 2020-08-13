@@ -1,5 +1,6 @@
 const { MongoClient, ObjectID } = require('mongodb');
 const configs = require('../common/configs');
+const { mongodb } = require('../common/configs');
 
 module.exports = class ConnectionService {
 
@@ -20,9 +21,7 @@ module.exports = class ConnectionService {
             return Promise.resolve(this._db);
         }
 
-        return MongoClient.connect(configs.mongodb.url, {
-            useUnifiedTopology: true
-        }).then(connection => {
+        return MongoClient.connect(configs.mongodb.url, configs.mongodb.options).then(connection => {
 
             this._db = connection.db(process.env.MONGO_DB || 'transfeera');
 

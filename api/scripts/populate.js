@@ -90,7 +90,7 @@ const favorecidos = bulk.map(({
         account: getAccount(bank),
         account_digit: getAccountDigit(),
         account_type: getAccountType(bank),
-        status: randomize ? 'draft' : 'validate'
+        status: randomize ? 'draft' : 'validated'
     };
 });
 

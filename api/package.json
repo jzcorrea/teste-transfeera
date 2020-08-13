@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js",
+    "test": "jest --config ./jest-config.json --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +14,12 @@
     "express": "^4.17.1",
     "express-joi-validation": "^4.0.4-beta.0",
     "mongodb": "^3.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^26.3.0",
+    "superagent": "^6.0.0",
+    "supertest": "^4.0.2"
   }
 }

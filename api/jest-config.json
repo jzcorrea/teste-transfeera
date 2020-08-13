@@ -1,0 +1,14 @@
+{
+    "testMatch": [
+		"**/?!(*.e2e).spec.js"
+	],
+	"collectCoverage": true,
+	"coverageDirectory": "<rootDir>/coverage",
+	"collectCoverageFrom": [
+		"src/modules/**",
+		"src/services/**",
+		"!src/**/*.e2e.*",
+		"!src/modules/**/*.routes.js",
+		"!src/modules/**/*.validation.js"
+	]
+}

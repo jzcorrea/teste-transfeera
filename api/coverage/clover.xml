@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1597281250209" clover="3.2.0">
+  <project timestamp="1597281250209" name="All files">
+    <metrics statements="53" coveredstatements="53" conditionals="12" coveredconditionals="11" methods="20" coveredmethods="20" elements="85" coveredelements="84" complexity="0" loc="53" ncloc="53" packages="2" files="3" classes="3"/>
+    <package name="modules.favorecidos">
+      <metrics statements="40" coveredstatements="40" conditionals="8" coveredconditionals="7" methods="15" coveredmethods="15"/>
+      <file name="favorecidos.collection.js" path="/home/sofit-jose/GIT/teste-transfeera/api/src/modules/favorecidos/favorecidos.collection.js">
+        <metrics statements="22" coveredstatements="22" conditionals="8" coveredconditionals="7" methods="9" coveredmethods="9"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="7" count="7" type="stmt"/>
+        <line num="12" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="17" count="11" type="stmt"/>
+        <line num="22" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="29" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="44" count="7" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="70" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+      </file>
+      <file name="favorecidos.controller.js" path="/home/sofit-jose/GIT/teste-transfeera/api/src/modules/favorecidos/favorecidos.controller.js">
+        <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="7" count="8" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="60" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="services">
+      <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="4" methods="5" coveredmethods="5"/>
+      <file name="connection.service.js" path="/home/sofit-jose/GIT/teste-transfeera/api/src/services/connection.service.js">
+        <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="4" methods="5" coveredmethods="5"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="9" count="11" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="19" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="26" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

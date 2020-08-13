@@ -29,7 +29,7 @@ const body = validator.body(Joi.object({
         then: Joi.string().valid(...ACCOUNT_TYPES.bb).required(),
         otherwise: Joi.string().valid(...ACCOUNT_TYPES.other)
     }).required(),
-    status: Joi.string().required()
+    status: Joi.string().default('draft').valid('draft', 'validated')
 }));
 
 const params = validator.params(Joi.object({

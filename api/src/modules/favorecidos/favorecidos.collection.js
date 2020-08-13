@@ -69,7 +69,7 @@ module.exports = class FavorecidosCollection {
 
         return id ? collection.updateOne({
             _id: this.connectionService.getObjectId(id)
-        }, data) : collection.insertOne(data);
+        }, { $set: data }) : collection.insertOne(data);
     }
 
     async deleteOne(id) {
