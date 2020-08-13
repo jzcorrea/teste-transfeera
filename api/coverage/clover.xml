@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1597286448957" clover="3.2.0">
-  <project timestamp="1597286448957" name="All files">
-    <metrics statements="52" coveredstatements="52" conditionals="12" coveredconditionals="11" methods="20" coveredmethods="20" elements="84" coveredelements="83" complexity="0" loc="52" ncloc="52" packages="2" files="3" classes="3"/>
+<coverage generated="1597361513238" clover="3.2.0">
+  <project timestamp="1597361513239" name="All files">
+    <metrics statements="54" coveredstatements="54" conditionals="12" coveredconditionals="11" methods="20" coveredmethods="20" elements="86" coveredelements="85" complexity="0" loc="54" ncloc="54" packages="2" files="3" classes="3"/>
     <package name="modules.favorecidos">
-      <metrics statements="40" coveredstatements="40" conditionals="8" coveredconditionals="7" methods="15" coveredmethods="15"/>
+      <metrics statements="42" coveredstatements="42" conditionals="8" coveredconditionals="7" methods="15" coveredmethods="15"/>
       <file name="favorecidos.collection.js" path="/home/sofit-jose/GIT/teste-transfeera/api/src/modules/favorecidos/favorecidos.collection.js">
-        <metrics statements="22" coveredstatements="22" conditionals="8" coveredconditionals="7" methods="9" coveredmethods="9"/>
+        <metrics statements="24" coveredstatements="24" conditionals="8" coveredconditionals="7" methods="9" coveredmethods="9"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="7" count="7" type="stmt"/>
@@ -19,15 +19,17 @@
         <line num="44" count="7" type="stmt"/>
         <line num="49" count="2" type="stmt"/>
         <line num="50" count="2" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
         <line num="52" count="2" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
-        <line num="68" count="2" type="stmt"/>
-        <line num="70" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="77" count="1" type="stmt"/>
-        <line num="79" count="1" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="73" count="2" type="stmt"/>
+        <line num="75" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="84" count="1" type="stmt"/>
         <line num="86" count="1" type="stmt"/>
-        <line num="88" count="1" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
       </file>
       <file name="favorecidos.controller.js" path="/home/sofit-jose/GIT/teste-transfeera/api/src/modules/favorecidos/favorecidos.controller.js">
         <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>

@@ -5,6 +5,7 @@ const FavorecidosCollection = require('../favorecidos.collection');
 const ConnectionService = require('../../../services/connection.service');
 
 const mockedCollection = {
+    countDocuments: jest.fn().mockResolvedValue('count'),
     find: jest.fn().mockReturnThis(),
     findOne: jest.fn().mockResolvedValue('findOne'),
     insertOne: jest.fn().mockReturnThis(),
@@ -62,6 +63,7 @@ describe('Favorecidos collection tests', () => {
 
         await favCollection.getAll(page, perPage);
 
+        expect(mockedCollection.countDocuments).toBeCalledWith({});
         expect(mockedCollection.find).toBeCalledWith({});
         expect(mockedCollection.sort).toBeCalledWith({
             name: 1
@@ -77,6 +79,7 @@ describe('Favorecidos collection tests', () => {
 
         await favCollection.getAll(2, 20, search);
 
+        expect(mockedCollection.countDocuments).toBeCalledWith(filter);
         expect(mockedCollection.find).toBeCalledWith(filter);
         expect(mockedCollection.sort).toBeCalledWith({
             name: 1

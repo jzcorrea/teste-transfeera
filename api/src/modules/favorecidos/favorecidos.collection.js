@@ -48,10 +48,15 @@ module.exports = class FavorecidosCollection {
 
         const filter = this.getSearchFilter(search);
         const collection = await this.getCollection();
-
-        return collection.find(filter).sort({
+        const count = await collection.countDocuments(filter);
+        const rows = await collection.find(filter).sort({
             name: 1
         }).skip((page - 1) * perPage).limit(perPage).toArray();
+
+        return {
+            count,
+            rows
+        };
     }
 
     async getOne(id) {
@@ -69,7 +74,9 @@ module.exports = class FavorecidosCollection {
 
         return id ? collection.updateOne({
             _id: this.connectionService.getObjectId(id)
-        }, { $set: data }) : collection.insertOne(data);
+        }, {
+            $set: data
+        }) : collection.insertOne(data);
     }
 
     async deleteOne(id) {

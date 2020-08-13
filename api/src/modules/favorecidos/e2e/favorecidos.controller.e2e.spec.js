@@ -32,7 +32,8 @@ describe('Favorecidos controller integration tests', () => {
         const content = JSON.parse(res.text);
 
         expect(res.statusCode).toBe(200);
-        expect(content.length).toBeLessThanOrEqual(10);
+        expect(content.count).toBeGreaterThan(0);
+        expect(content.rows.length).toBeLessThanOrEqual(10);
         done();
     });
 
@@ -43,7 +44,8 @@ describe('Favorecidos controller integration tests', () => {
         const content = JSON.parse(res.text);
 
         expect(res.statusCode).toBe(200);
-        expect(content.length).toBeLessThanOrEqual(perPage);
+        expect(content.count).toBeGreaterThan(0);
+        expect(content.rows.length).toBeLessThanOrEqual(perPage);
         done();
     });
 
@@ -53,7 +55,8 @@ describe('Favorecidos controller integration tests', () => {
         const content = JSON.parse(res.text);
 
         expect(res.statusCode).toBe(200);
-        expect(content.length).toBeGreaterThan(0);
+        expect(content.count).toBeGreaterThan(0);
+        expect(content.rows.length).toBeGreaterThan(0);
         done();
     });
 
@@ -63,7 +66,8 @@ describe('Favorecidos controller integration tests', () => {
         const content = JSON.parse(res.text);
 
         expect(res.statusCode).toBe(200);
-        expect(content.length).toBe(0);
+        expect(content.count).toBe(0);
+        expect(content.rows.length).toBe(0);
         done();
     });
 
