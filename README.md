@@ -15,7 +15,7 @@ Teste para vaga de Full Stack Developer.
 
 ## Configurações iniciais:
 Dentro da pasta do projeto:
-1. `node api/scripts/populate` para gerar os 30 registros iniciais;
+1. `node api/scripts/populate.js` para gerar os 30 registros iniciais;
 2. `cd api && npm i`;
 3. `cd web && npm i`.
 
